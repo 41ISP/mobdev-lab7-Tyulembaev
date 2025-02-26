@@ -1,3 +1,4 @@
+import userApi from "@/shared/userApi";
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text } from "react-native";
 
@@ -6,14 +7,21 @@ const LoginScreen = () => {
 
     const [username, setUsername] = useState('');
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
       if(username.trim() === '')
       {
         alert("your name is empty");
         return;
       }
       // Здесь можно добавить логику для входа
-      console.log(`Вход выполнен под именем: ${username}`);
+      try
+      {
+        console.log(username)
+        const socketId =  await userApi.login(username);
+        console.log(`Вход выполнен под id: ${socketId}`);
+      } catch(err) {
+        console.log(err);
+      }
     };
 
     return (
@@ -21,10 +29,10 @@ const LoginScreen = () => {
             <View style={styles.formContainer}>
                 <Text style={styles.title}>Вход</Text>
                 <TextInput
-                style={styles.input}
-                placeholder="Имя пользователя"
-                value={username}
-                onChangeText={setUsername}
+                  style={styles.input}
+                  placeholder="Имя пользователя"
+                  value={username}
+                  onChangeText={setUsername}
                 />
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text style={styles.buttonText}>Войти</Text>

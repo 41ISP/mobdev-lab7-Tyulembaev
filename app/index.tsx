@@ -1,4 +1,4 @@
-import LoginScreen from "@/scripts/LoginScreen";
+import LoginScreen from "@/screens/LoginScreen";
 
 const index = () => {
   return (

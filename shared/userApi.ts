@@ -1,8 +1,5 @@
 import axios from "axios";
 
-interface IUser  {
-    id : string
-}
 
 const userApiInstance = axios.create({
     baseURL: process.env.EXPO_PUBLIC_URL
@@ -13,7 +10,7 @@ const userApi = {
         const response = await userApiInstance.post('/login', {
             id : id,
         })
-        return response.data;
+        return response.data.id;
     },
     getMessage: async (id: string) => {
         const response = await userApiInstance.get(`/messages/${id}`, {

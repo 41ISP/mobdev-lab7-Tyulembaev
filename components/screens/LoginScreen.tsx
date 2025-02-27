@@ -1,4 +1,5 @@
 import userApi from "@/shared/userApi";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text } from "react-native";
 
@@ -6,6 +7,8 @@ import { SafeAreaView, StyleSheet, TextInput, TouchableOpacity, View, Text } fro
 const LoginScreen = () => {
 
     const [username, setUsername] = useState('');
+
+    const router = useRouter();
 
     const handleLogin = async () => {
       if(username.trim() === '')
@@ -19,6 +22,7 @@ const LoginScreen = () => {
         console.log(username)
         const socketId =  await userApi.login(username);
         console.log(`Вход выполнен под id: ${socketId}`);
+        router.push("/(home)");
       } catch(err) {
         console.log(err);
       }
